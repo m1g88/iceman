@@ -1,0 +1,22 @@
+tab,column,header_en,header_th,example,validation
+Route_Sales,A,Date,วันที่,2026-06-16,
+Route_Sales,B,Route,เส้นทาง,Route_01,Routes
+Route_Sales,C,Store,ร้าน,Store_01,Stores
+Route_Sales,D,Bags,ถุง,10,
+Route_Sales,E,Sale type,สดหรือค้างจ่าย,Cash,SaleTypes
+Route_Sales,F,Amount (฿),จำนวนเงิน,300,
+Route_Sales,G,Notes,หมายเหตุ,,
+Store_Payments,A,Date,วันที่,2026-06-20,
+Store_Payments,B,Store,ร้าน,Store_02,Stores
+Store_Payments,C,Amount paid (฿),จำนวนที่จ่าย,240,
+Store_Payments,D,Payment method,ช่องทางจ่าย,Cash,PaymentMethods
+Store_Payments,E,Notes,หมายเหตุ,,
+Expenses,A,Date,วันที่,2026-06-16,
+Expenses,B,Category,หมวด,Fuel,ExpenseCategories
+Expenses,C,Amount (฿),จำนวนเงิน,800,
+Expenses,D,Payment,ช่องทางจ่าย,Cash,PaymentMethods
+Expenses,E,Vendor or notes,รายละเอียด,Route 01,
+Inventory,A,Week ending,สิ้นสัปดาห์,2026-06-15,
+Inventory,B,Bags produced,ผลิต,500,
+Inventory,C,Bags sold,ขาย,formula,
+Inventory,D,Variance,ต่าง,formula,

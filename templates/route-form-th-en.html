@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <title>Route Form / แบบฟอร์มเส้นทาง</title>
+  <style>
+    @page { size: A4; margin: 12mm; }
+    * { box-sizing: border-box; }
+    body { font-family: "Sarabun", "Noto Sans Thai", Arial, sans-serif; font-size: 11pt; color: #111; }
+    h1 { font-size: 16pt; margin: 0 0 4px; }
+    .sub { color: #444; margin-bottom: 12px; }
+    .meta { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 24px; margin-bottom: 12px; }
+    .meta label { display: block; font-size: 9pt; color: #555; }
+    .line { border-bottom: 1px solid #333; min-height: 22px; margin-top: 2px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 8px; }
+    th, td { border: 1px solid #333; padding: 6px 8px; text-align: left; }
+    th { background: #1f4e79; color: #fff; font-size: 10pt; }
+    td { height: 28px; }
+    .totals { margin-top: 12px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+    .sig { margin-top: 24px; }
+    @media print { .no-print { display: none; } }
+  </style>
+</head>
+<body>
+  <h1>Ice Route Daily Form</h1>
+  <p class="sub">แบบฟอร์มรายงานเส้นทางส่งน้ำแข็ง — one row per store / หนึ่งแถวต่อร้าน</p>
+
+  <div class="meta">
+    <div>
+      <label>Date / วันที่</label>
+      <div class="line"></div>
+    </div>
+    <div>
+      <label>Route / เส้นทาง</label>
+      <div class="line"></div>
+    </div>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width:32%">Store / ร้าน</th>
+        <th style="width:12%">Bags / ถุง</th>
+        <th style="width:22%">Cash or Credit<br/>สด หรือ ค้างจ่าย</th>
+        <th style="width:18%">Amount (฿)<br/>จำนวนเงิน</th>
+        <th style="width:16%">Notes / หมายเหตุ</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td></td><td></td><td></td><td></td><td></td></tr>
+    </tbody>
+  </table>
+
+  <div class="totals">
+    <div>
+      <label>Total bags / ถุงรวม</label>
+      <div class="line"></div>
+    </div>
+    <div>
+      <label>Total cash (฿) / เงินสดรวม</label>
+      <div class="line"></div>
+    </div>
+    <div>
+      <label>Total credit (฿) / ค้างจ่ายรวม</label>
+      <div class="line"></div>
+    </div>
+  </div>
+
+  <div class="sig">
+    <label>Driver signature / ลายเซ็นคนขับ</label>
+    <div class="line" style="width: 50%; margin-top: 28px;"></div>
+  </div>
+
+  <p class="no-print" style="margin-top:24px;color:#666;font-size:10pt;">Print with browser (Cmd/Ctrl+P). Use one form per route per day.</p>
+</body>
+</html>
