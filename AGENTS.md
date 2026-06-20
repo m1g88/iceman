@@ -14,4 +14,4 @@ Single-context layout: `CONTEXT.md` and `docs/adr/` at the repo root. See `docs/
 
 ### Ice business ledger
 
-Google Sheets template and setup: `docs/spreadsheet-setup.md`. Workbook: `templates/ice-business-ledger.xlsx`. Paper route form: `templates/route-form-th-en.html`. Dropdown fix: `scripts/google-sheets-validation.gs`.
+Google Sheets template and setup: `docs/spreadsheet-setup.md`. **Web app:** `docs/web-setup.md`, run from `web/`. Workbook: `templates/ice-business-ledger.xlsx`. Paper route form: `templates/route-form-th-en.html`. Dropdown fix: `scripts/google-sheets-validation.gs`.
