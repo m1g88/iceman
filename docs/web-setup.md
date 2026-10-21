@@ -32,7 +32,7 @@ Follow [supabase-staging-setup.md](./supabase-staging-setup.md) — migration, s
 ```bash
 cd web
 cp .env.local.example .env.local
-# Paste STAGING Project URL + anon key only
+# Paste STAGING Project URL + publishable key only
 bun install
 bun run dev
 ```

@@ -50,6 +50,6 @@ Do **not** add `localhost` or `*.vercel.app` on the production project.
 
 ## 6. Keys for Vercel Production only
 
-**Settings** → **API** → copy URL + anon key into Vercel **Production** env scope only.
+**Settings** → **API** → copy URL + publishable key into Vercel **Production** env scope only.
 
 Staging keys stay on Preview/Development scopes.

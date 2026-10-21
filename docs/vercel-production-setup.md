@@ -11,7 +11,7 @@ Add (or update) for **Production** scope only:
 | Name | Value |
 |------|--------|
 | `NEXT_PUBLIC_SUPABASE_URL` | `iceman-prod` project URL |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | `iceman-prod` anon key |
+| `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | `iceman-prod` publishable key |
 
 Preview/Development scopes keep **staging** keys.
 

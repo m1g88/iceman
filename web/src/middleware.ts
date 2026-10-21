@@ -1,11 +1,9 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { updateSession } from "@/lib/supabase/middleware";
+import { supabaseConfigured } from "@/lib/supabase/env";
 
 export async function middleware(request: NextRequest) {
-  if (
-    !process.env.NEXT_PUBLIC_SUPABASE_URL ||
-    !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-  ) {
+  if (!supabaseConfigured) {
     return NextResponse.next();
   }
   return updateSession(request);
