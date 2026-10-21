@@ -17,7 +17,7 @@ Phase 1 MVP: route sales, payments, expenses, store balances, basic P&L dashboar
 
 ## Prerequisites
 
-- Node.js 20+
+- [Bun](https://bun.sh) 1.2+ (package manager + runtime) — installed via `mise` from `web/mise.toml`
 - [Supabase](https://supabase.com) account (free tier — 2 projects for staging + prod)
 - [Vercel](https://vercel.com) account (Hobby free)
 
@@ -32,14 +32,14 @@ Follow [supabase-staging-setup.md](./supabase-staging-setup.md) — migration, s
 ```bash
 cd web
 cp .env.local.example .env.local
-# Paste STAGING Project URL + anon key only
-npm install
-npm run dev
+# Paste STAGING Project URL + publishable key only
+bun install
+bun run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) → sign in with staging test user.
 
-**Do not run `npm audit fix --force`** — it can downgrade Next.js and break React 19.
+**Do not run `bun update --latest` on Next.js** — it can upgrade Next past the pinned `15.5.19` and break React 19. Use `bun outdated` to review, `bun update <pkg>` to bump one package.
 
 ### 3. Verify locally
 
@@ -80,9 +80,10 @@ Supabase **Table Editor** → `routes` / `stores` — edit names (test in stagin
 
 | Symptom | Fix |
 |---------|-----|
-| `npm install` ERESOLVE | `next` must be `15.5.19` in package.json; don't audit fix --force |
+| `bun install` fails / missing deps | Run from `web/`; lockfile is `bun.lock` — don't mix with npm |
+| Lockfile drift on Vercel | `bun install --frozen-lockfile` fails when `package.json` and `bun.lock` disagree — run `bun install` locally and commit `bun.lock` |
 | Login works locally, fails on Vercel | Staging redirect URLs: `https://*.vercel.app/**` |
-| Vercel build fails | Root directory = `web` |
+| Vercel build fails | Root directory = `web`; build command `bun run build` |
 | Wrong data on preview | Preview env vars = staging Supabase, not prod |
 | Missing env on Vercel | Set Preview scope for both `NEXT_PUBLIC_*` vars |
 

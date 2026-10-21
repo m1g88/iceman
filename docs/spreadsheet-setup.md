@@ -11,7 +11,7 @@ Google Sheets workbook for tracking route sales (cash vs credit per store), stor
 5. If dropdowns are missing, see [Dropdown setup after import](#dropdown-setup-after-import) below (takes ~2 minutes)
 6. Rename routes and stores on **Settings** to your real names
 7. Enter go-live balances on **Opening_Balances**
-8. Print route forms from [`templates/route-form-th-en.html`](../templates/route-form-th-en.html)
+8. Print route forms from [`templates/route-form-th-en.html`](../templates/route-form-th-en.html) — print settings: A4, portrait, margins Default, scale 100%, background graphics on
 9. Delete sample rows in `Route_Sales`, `Store_Payments`, and `Expenses` before go-live
 
 The workbook includes a **README_Setup** tab with the same dropdown instructions.

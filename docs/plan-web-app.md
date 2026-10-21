@@ -140,13 +140,13 @@ iceman/
 
 ## Deploy
 
-**Env:** `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+**Env:** `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`
 
 **Local:**
 ```bash
-cd web && npm install
-npx supabase start && npx supabase db push
-npm run dev
+cd web && bun install
+bunx supabase start && bunx supabase db push
+bun run dev
 ```
 
 **Prod:** Vercel (root `web/`) + Supabase cloud project.

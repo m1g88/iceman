@@ -24,7 +24,7 @@ Add both variables. Enable **Preview** and **Development** only — **not Produc
 | Name | Value |
 |------|--------|
 | `NEXT_PUBLIC_SUPABASE_URL` | Staging Supabase project URL |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Staging anon public key |
+| `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | Staging publishable key (`sb_publishable_...`) |
 
 ## 3. Git branch
 

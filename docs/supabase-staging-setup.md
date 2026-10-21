@@ -59,7 +59,7 @@ The `*.vercel.app` wildcard covers all Vercel preview deploy URLs.
 **Settings** → **API**
 
 - **Project URL** → `NEXT_PUBLIC_SUPABASE_URL`
-- **anon public** key → `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+- **publishable** key (`sb_publishable_...`) → `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`
 
 Use these for:
 

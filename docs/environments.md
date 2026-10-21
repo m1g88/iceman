@@ -50,11 +50,15 @@ Project settings → **Environment Variables**:
 | Variable | Preview | Production | Development |
 |----------|---------|------------|-------------|
 | `NEXT_PUBLIC_SUPABASE_URL` | Staging URL | Prod URL | Staging URL |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Staging anon | Prod anon | Staging anon |
+| `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | Staging publishable key | Prod publishable key | Staging publishable key |
 
 **Until production launch:** set Preview + Development only. Leave Production empty or unset.
 
 Never commit real keys. Use `.env.local` locally (gitignored).
+
+Supabase now issues publishable keys (`sb_publishable_...`). The app reads
+`NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`; the legacy `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+still works as a fallback, so existing Vercel env vars don't break.
 
 ## Local development
 
@@ -62,8 +66,8 @@ Never commit real keys. Use `.env.local` locally (gitignored).
 cd web
 cp .env.local.example .env.local
 # Paste STAGING keys only
-npm install
-npm run dev
+bun install
+bun run dev
 ```
 
 ## Promotion workflow
