@@ -62,8 +62,8 @@ Never commit real keys. Use `.env.local` locally (gitignored).
 cd web
 cp .env.local.example .env.local
 # Paste STAGING keys only
-npm install
-npm run dev
+bun install
+bun run dev
 ```
 
 ## Promotion workflow

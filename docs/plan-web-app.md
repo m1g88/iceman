@@ -144,9 +144,9 @@ iceman/
 
 **Local:**
 ```bash
-cd web && npm install
-npx supabase start && npx supabase db push
-npm run dev
+cd web && bun install
+bunx supabase start && bunx supabase db push
+bun run dev
 ```
 
 **Prod:** Vercel (root `web/`) + Supabase cloud project.
