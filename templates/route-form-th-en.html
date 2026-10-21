@@ -1,90 +1,560 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="th">
-<head>
-  <meta charset="UTF-8" />
-  <title>Route Form / แบบฟอร์มเส้นทาง</title>
-  <style>
-    @page { size: A4; margin: 12mm; }
-    * { box-sizing: border-box; }
-    body { font-family: "Sarabun", "Noto Sans Thai", Arial, sans-serif; font-size: 11pt; color: #111; }
-    h1 { font-size: 16pt; margin: 0 0 4px; }
-    .sub { color: #444; margin-bottom: 12px; }
-    .meta { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 24px; margin-bottom: 12px; }
-    .meta label { display: block; font-size: 9pt; color: #555; }
-    .line { border-bottom: 1px solid #333; min-height: 22px; margin-top: 2px; }
-    table { width: 100%; border-collapse: collapse; margin-top: 8px; }
-    th, td { border: 1px solid #333; padding: 6px 8px; text-align: left; }
-    th { background: #1f4e79; color: #fff; font-size: 10pt; }
-    td { height: 28px; }
-    .totals { margin-top: 12px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
-    .sig { margin-top: 24px; }
-    @media print { .no-print { display: none; } }
-  </style>
-</head>
-<body>
-  <h1>Ice Route Daily Form</h1>
-  <p class="sub">แบบฟอร์มรายงานเส้นทางส่งน้ำแข็ง — one row per store / หนึ่งแถวต่อร้าน</p>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Route Form / แบบฟอร์มเส้นทาง</title>
+        <style>
+            /* ---------- Page setup: A4 portrait, 10 mm margins => 190 x 277 mm content box ---------- */
+            @page {
+                size: A4 portrait;
+                margin: 10mm;
+            }
 
-  <div class="meta">
-    <div>
-      <label>Date / วันที่</label>
-      <div class="line"></div>
-    </div>
-    <div>
-      <label>Route / เส้นทาง</label>
-      <div class="line"></div>
-    </div>
-  </div>
+            :root {
+                --ink: #111;
+                --rule: #333;
+                --accent: #1f4e79;
+                --page-w: 190mm;
+                --page-h: 277mm;
+            }
 
-  <table>
-    <thead>
-      <tr>
-        <th style="width:32%">Store / ร้าน</th>
-        <th style="width:12%">Bags / ถุง</th>
-        <th style="width:22%">Cash or Credit<br/>สด หรือ ค้างจ่าย</th>
-        <th style="width:18%">Amount (฿)<br/>จำนวนเงิน</th>
-        <th style="width:16%">Notes / หมายเหตุ</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr><td></td><td></td><td></td><td></td><td></td></tr>
-      <tr><td></td><td></td><td></td><td></td><td></td></tr>
-      <tr><td></td><td></td><td></td><td></td><td></td></tr>
-      <tr><td></td><td></td><td></td><td></td><td></td></tr>
-      <tr><td></td><td></td><td></td><td></td><td></td></tr>
-      <tr><td></td><td></td><td></td><td></td><td></td></tr>
-      <tr><td></td><td></td><td></td><td></td><td></td></tr>
-      <tr><td></td><td></td><td></td><td></td><td></td></tr>
-      <tr><td></td><td></td><td></td><td></td><td></td></tr>
-      <tr><td></td><td></td><td></td><td></td><td></td></tr>
-      <tr><td></td><td></td><td></td><td></td><td></td></tr>
-      <tr><td></td><td></td><td></td><td></td><td></td></tr>
-      <tr><td></td><td></td><td></td><td></td><td></td></tr>
-      <tr><td></td><td></td><td></td><td></td><td></td></tr>
-      <tr><td></td><td></td><td></td><td></td><td></td></tr>
-    </tbody>
-  </table>
+            * {
+                box-sizing: border-box;
+            }
 
-  <div class="totals">
-    <div>
-      <label>Total bags / ถุงรวม</label>
-      <div class="line"></div>
-    </div>
-    <div>
-      <label>Total cash (฿) / เงินสดรวม</label>
-      <div class="line"></div>
-    </div>
-    <div>
-      <label>Total credit (฿) / ค้างจ่ายรวม</label>
-      <div class="line"></div>
-    </div>
-  </div>
+            html,
+            body {
+                margin: 0;
+                padding: 0;
+            }
 
-  <div class="sig">
-    <label>Driver signature / ลายเซ็นคนขับ</label>
-    <div class="line" style="width: 50%; margin-top: 28px;"></div>
-  </div>
+            body {
+                font-family:
+                    "Sarabun", "Noto Sans Thai", "Leelawadee UI", Thonburi,
+                    Tahoma, Arial, sans-serif;
+                font-size: 10pt;
+                line-height: 1.3;
+                color: var(--ink);
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
 
-  <p class="no-print" style="margin-top:24px;color:#666;font-size:10pt;">Print with browser (Cmd/Ctrl+P). Use one form per route per day.</p>
-</body>
+            /* The sheet is exactly the printable area of one A4 page */
+            .sheet {
+                width: var(--page-w);
+                min-height: var(--page-h);
+                margin: 0 auto;
+                display: flex;
+                flex-direction: column;
+            }
+
+            /* ---------- Header ---------- */
+            .head {
+                display: flex;
+                align-items: flex-start;
+                justify-content: space-between;
+                gap: 8mm;
+                padding-bottom: 2mm;
+                border-bottom: 1.5pt solid var(--accent);
+            }
+            h1 {
+                font-size: 15pt;
+                margin: 0;
+                line-height: 1.2;
+            }
+            .sub {
+                margin: 1mm 0 0;
+                color: #444;
+                font-size: 8.5pt;
+            }
+            .stamp {
+                flex: 0 0 auto;
+                text-align: right;
+                font-size: 8pt;
+                color: #555;
+                white-space: nowrap;
+            }
+            .stamp b {
+                color: var(--ink);
+            }
+
+            /* ---------- Fields ---------- */
+            .meta {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 3mm 10mm;
+                margin-top: 3mm;
+            }
+            label {
+                display: block;
+                font-size: 8.5pt;
+                color: #444;
+                line-height: 1.2;
+            }
+            .line {
+                border-bottom: 0.75pt solid var(--rule);
+                height: 6mm;
+                margin-top: 1mm;
+            }
+
+            /* ---------- Table ---------- */
+            /* Grid wrapper lets the table stretch to fill the rest of the page */
+            .table-wrap {
+                flex: 1 1 auto;
+                display: grid;
+                grid-template-rows: 1fr;
+                margin-top: 4mm;
+            }
+            table {
+                width: 100%;
+                height: 100%;
+                border-collapse: collapse;
+                table-layout: fixed;
+            }
+            th,
+            td {
+                border: 0.75pt solid var(--rule);
+                padding: 1.2mm 2mm;
+                text-align: left;
+                vertical-align: top;
+            }
+            th {
+                background: var(--accent);
+                color: #fff;
+                font-size: 9pt;
+                font-weight: 600;
+                line-height: 1.25;
+                vertical-align: middle;
+            }
+            th .th {
+                display: block;
+            }
+            th .th-th {
+                display: block;
+                font-weight: 400;
+                font-size: 8.5pt;
+            }
+            /* min height only - grid wrapper stretches rows to fill the page */
+            tbody td {
+                height: 5mm;
+                font-size: 10pt;
+            }
+            tbody tr {
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+            thead {
+                display: table-header-group;
+            }
+            tbody {
+                break-inside: auto;
+            }
+
+            /* ---------- Totals ---------- */
+            .totals {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 8mm;
+                margin-top: 4mm;
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+
+            /* ---------- Signatures ---------- */
+            .sig {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 10mm;
+                margin-top: 6mm;
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+            .sig .line {
+                margin-top: 7mm;
+            }
+
+            .foot {
+                margin-top: 3mm;
+                padding-top: 1mm;
+                border-top: 0.5pt solid #bbb;
+                font-size: 7.5pt;
+                color: #666;
+                display: flex;
+                justify-content: space-between;
+            }
+
+            /* ---------- Screen preview only (never printed) ---------- */
+            @media screen {
+                body {
+                    background: #e8e8e8;
+                    padding: 8mm 0;
+                }
+                .sheet {
+                    width: min(calc(var(--page-w) + 20mm), 100%);
+                    min-height: calc(var(--page-h) + 20mm);
+                    margin: 0 auto;
+                    padding: 10mm;
+                    background: #fff;
+                    box-shadow: 0 2px 14px rgba(0, 0, 0, 0.22);
+                }
+                .screen-only {
+                    display: block;
+                }
+            }
+            @media screen and (max-width: 700px) {
+                .sheet {
+                    padding: 8mm;
+                    min-height: 0;
+                }
+            }
+            @media print {
+                .screen-only {
+                    display: none !important;
+                }
+                body {
+                    background: #fff;
+                    padding: 0;
+                }
+                .sheet {
+                    margin: 0;
+                    padding: 0;
+                    width: var(--page-w);
+                    min-height: var(--page-h);
+                    box-shadow: none;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="sheet">
+            <div class="head">
+                <div>
+                    <h1>Ice Route Daily Form</h1>
+                    <p class="sub">
+                        แบบฟอร์มรายงานเส้นทางส่งน้ำแข็ง — one row per store /
+                        หนึ่งแถวต่อร้าน
+                    </p>
+                </div>
+                <div class="stamp">
+                    Form no. <b>____________</b><br />
+                    <!--Sheet <b>1 / 1</b>-->
+                </div>
+            </div>
+
+            <div class="meta">
+                <div>
+                    <label>Date / วันที่</label>
+                    <div class="line"></div>
+                </div>
+                <div>
+                    <label>Route / เส้นทาง</label>
+                    <div class="line"></div>
+                </div>
+                <div>
+                    <label>Driver / คนขับ</label>
+                    <div class="line"></div>
+                </div>
+                <div>
+                    <label>Vehicle / รถทะเบียน</label>
+                    <div class="line"></div>
+                </div>
+            </div>
+
+            <div class="table-wrap">
+                <table>
+                    <colgroup>
+                        <col style="width: 30%" />
+                        <col style="width: 10%" />
+                        <col style="width: 19%" />
+                        <col style="width: 16%" />
+                        <col style="width: 25%" />
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th>
+                                <span class="th">Store / ร้าน</span>
+                                <span class="th-th">ชื่อร้าน</span>
+                            </th>
+                            <th>
+                                <span class="th">Bags / ถุง</span>
+                                <span class="th-th">จำนวนถุง</span>
+                            </th>
+                            <th>
+                                <span class="th">Cash or Credit</span>
+                                <span class="th-th">สด หรือ ค้างจ่าย</span>
+                            </th>
+                            <th>
+                                <span class="th">Amount (฿)</span>
+                                <span class="th-th">จำนวนเงิน</span>
+                            </th>
+                            <th>
+                                <span class="th">Notes / หมายเหตุ</span>
+                                <span class="th-th">หมายเหตุ</span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="totals">
+                <div>
+                    <label>Total bags / ถุงรวม</label>
+                    <div class="line"></div>
+                </div>
+                <div>
+                    <label>Total cash (฿) / เงินสดรวม</label>
+                    <div class="line"></div>
+                </div>
+                <div>
+                    <label>Total credit (฿) / ค้างจ่ายรวม</label>
+                    <div class="line"></div>
+                </div>
+            </div>
+
+            <div class="sig">
+                <div>
+                    <label>Driver signature / ลายเซ็นคนขับ</label>
+                    <div class="line"></div>
+                </div>
+                <div>
+                    <label>Received by (branch) / ผู้รับฟอร์ม (สาขา)</label>
+                    <div class="line"></div>
+                </div>
+            </div>
+
+            <div class="foot">
+                <span
+                    >แบบฟอร์มเส้นทางรายวัน —
+                    ใช้หนึ่งใบต่อหนึ่งเส้นทางต่อวัน</span
+                >
+                <span>One form per route per day</span>
+            </div>
+        </div>
+
+        <p
+            class="screen-only"
+            style="
+                margin: 6mm auto;
+                max-width: 190mm;
+                color: #555;
+                font-size: 10pt;
+            "
+        >
+            Print-ready A4 portrait. Use your browser: <b>Cmd/Ctrl + P</b> →
+            Paper size <b>A4</b> → Margins <b>Default</b> → Scale <b>100%</b> →
+            tick <b>Background graphics</b>.
+        </p>
+    </body>
 </html>
